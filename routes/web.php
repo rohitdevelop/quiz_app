@@ -7,11 +7,12 @@ Route::get('/about', function () {
     return view('about.index', ["name" => "rohit singh"]);
 });
 
-// Todo App Routes
-Route::get('/', [TodoController::class, 'index']); // main page
-Route::post('/todos', [TodoController::class, 'store']);
-Route::patch('/todos/{id}/toggle', [TodoController::class, 'toggle']);
-Route::delete('/todos/{id}', [TodoController::class, 'destroy']);
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+ 
 
 // Teas example route
 Route::get('/teas', function () {
