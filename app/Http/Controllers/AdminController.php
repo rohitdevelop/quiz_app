@@ -60,4 +60,8 @@ class AdminController extends Controller
             return  redirect('admin-login');
         };
     }
+    function logout() {
+        Session::forget('admin');
+        return  redirect('admin-login');
+    }
 }
