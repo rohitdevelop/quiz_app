@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Admin;
 use App\Models\Category;
 use App\Models\Quiz;
+use App\Models\Mcq;
 use Illuminate\Support\Facades\Redirect;
 
 use function Pest\Laravel\session;
@@ -76,6 +77,8 @@ class AdminController extends Controller
         Session::forget('admin');
         return  redirect('admin-login');
     }
+
+
     function addCategory(Request $request)
     {
         $request->validate([
@@ -100,27 +103,65 @@ class AdminController extends Controller
         return redirect('admin-categories')->with('success', 'Category deleted!');
     }
 
-    function addQuiz()
-    {
-        $categories = Category::get();
+   function addQuiz(){
+      
         $admin = Session::get('admin');
-        if ($admin) {
-            $quizname = request('quiz');
-            $category_id = request('category_id');
-            if ($quizname && $category_id && !Session::has('quizeDetails')) {
-                $quiz = new Quiz();
-                $quiz->name = $quizname;
-                $quiz->category_id = $category_id;
+        $categories= Category::get();
+        $totalMCQs=0;
+        if($admin){
+             $quizName=request('quiz');
+             $category_id=request('category_id');
 
-                if ($quiz->save()) {
-                    Session::put('quizeDetails', $quiz);
+            if($quizName && $category_id && !Session::has('quizDetails')){
+                $quiz= new Quiz();
+                $quiz->name=$quizName;
+                $quiz->category_id=$category_id;
+                if($quiz->save()){
+                    Session::put('quizDetails',$quiz);
                 }
+
+            }else{
+                $quiz= Session::get('quizDetails');
+                $totalMCQs = $quiz && Mcq::where('quiz_id',$quiz->id)->count();
             }
 
-
-            return view('add-quiz', ["name" => $admin->name, "categories" => $categories]);
-        } else {
+            return view('add-quiz',["name"=>$admin->name,"categories"=>$categories,"totalMCQs"=>$totalMCQs]);
+        }else{
             return redirect('admin-login');
-        };
+        }
     }
+
+    function addMCQs(Request $request){
+       
+        $request->validate([
+            "question"=>"required | min:5",
+            "a"=>"required ",
+            "b"=>"required",
+            "d"=>"required",
+            "c"=>"required",
+            "correct_ans"=>"required",
+        ]);
+        $mcq= new Mcq();
+        $quiz= Session::get('quizDetails');
+        $admin= Session::get('admin');
+        $mcq->question= $request->question;
+        $mcq->a= $request->a;
+        $mcq->b= $request->b;
+        $mcq->c= $request->c;
+        $mcq->d= $request->d;
+        $mcq->correct_ans= $request->correct_ans;
+        $mcq->admin_id= $admin->id;
+        $mcq->quiz_id= $quiz->id;
+        $mcq->category_id= $quiz->category_id;
+        if($mcq->save()){
+           if($request->submit=="add-more"){
+            return redirect(url()->previous());
+           }else{
+            Session::forget('quizDetails');
+            return redirect("/admin-categories");
+           }
+        }
+
+    }
+ 
 }
