@@ -12,7 +12,7 @@
                   <a href="/admin-categories" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
                       Categories
                   </a>
-                  <a href="/quiz" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
+                  <a href="/add-quiz" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
                       Quiz
                   </a>
                   <a href="/dashboard" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">

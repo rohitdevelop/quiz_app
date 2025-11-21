@@ -45,7 +45,7 @@
             <!-- Submit Button -->
             <button
                 type="submit"
-                class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition duration-200 font-semibold">
+                class="w-full bg-indigo-600 cursor-pointer text-white py-2 rounded-lg hover:bg-indigo-700 transition duration-200 font-semibold">
                 Login
             </button>
 
