@@ -119,8 +119,20 @@
                                                     </svg>
                                                     <span class="hidden sm:inline">Delete</span>
                                                 </button>
-
                                             </form>
+                                            <button>
+                                                <a href="quiz-list/{{ $category->id }}/{{ $category->name }}"
+                                                    class="inline-flex items-center px-3 py-2 bg-indigo-500 text-white text-sm rounded-lg hover:bg-indigo-600 transition duration-200 shadow-sm hover:shadow-md mr-2"
+                                                    title="View Category Details">
+                                                    <svg class="w-4 h-4 sm:mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg>
+                                                    <span class="hidden sm:inline">View</span>
+                                                </a>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -143,55 +155,54 @@
         </div>
     </div>
     <!-- Delete Modal -->
-   <div id="deleteModal"
-    class="fixed inset-0 hidden z-50 flex items-center justify-center backdrop-blur-sm bg-transparent bg-opacity-40">
-    <div
-        class="bg-white rounded-xl p-6 max-w-sm w-full text-center shadow-lg transform transition-transform duration-200 scale-95 opacity-0">
-        <h3 class="text-xl font-semibold mb-4">Are you sure you want to delete?</h3>
-        <p id="modalCategoryName" class="mb-6 font-medium text-gray-700"></p>
-        <div class="flex justify-center gap-4">
-            <form id="deleteForm" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit"
-                    class="bg-red-500 px-4 py-2 rounded-lg text-white hover:bg-red-600 font-medium">OK</button>
-            </form>
-            <button onclick="closeModal()"
-                class="bg-gray-300 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-400 font-medium">Cancel</button>
+    <div id="deleteModal"
+        class="fixed inset-0 hidden z-50 flex items-center justify-center backdrop-blur-sm bg-transparent bg-opacity-40">
+        <div
+            class="bg-white rounded-xl p-6 max-w-sm w-full text-center shadow-lg transform transition-transform duration-200 scale-95 opacity-0">
+            <h3 class="text-xl font-semibold mb-4">Are you sure you want to delete?</h3>
+            <p id="modalCategoryName" class="mb-6 font-medium text-gray-700"></p>
+            <div class="flex justify-center gap-4">
+                <form id="deleteForm" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="bg-red-500 px-4 py-2 rounded-lg text-white hover:bg-red-600 font-medium">OK</button>
+                </form>
+                <button onclick="closeModal()"
+                    class="bg-gray-300 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-400 font-medium">Cancel</button>
+            </div>
         </div>
     </div>
-</div>
 
 
 
     <script>
         function openModal(id, name) {
-    const modal = document.getElementById('deleteModal');
-    const modalContent = modal.querySelector('div');
+            const modal = document.getElementById('deleteModal');
+            const modalContent = modal.querySelector('div');
 
-    document.getElementById('modalCategoryName').innerText = `"${name}"`;
-    document.getElementById('deleteForm').action = `/delete-category/${id}`;
+            document.getElementById('modalCategoryName').innerText = `"${name}"`;
+            document.getElementById('deleteForm').action = `/delete-category/${id}`;
 
-    modal.classList.remove('hidden');
-    
-    // Animate modal in
-    setTimeout(() => {
-        modalContent.classList.remove('scale-95', 'opacity-0');
-        modalContent.classList.add('scale-100', 'opacity-100');
-    }, 10);
-}
+            modal.classList.remove('hidden');
 
-function closeModal() {
-    const modal = document.getElementById('deleteModal');
-    const modalContent = modal.querySelector('div');
+            // Animate modal in
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
 
-    // Animate modal out
-    modalContent.classList.add('scale-95', 'opacity-0');
-    setTimeout(() => {
-        modal.classList.add('hidden');
-    }, 200);
-}
+        function closeModal() {
+            const modal = document.getElementById('deleteModal');
+            const modalContent = modal.querySelector('div');
 
+            // Animate modal out
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
     </script>
 
 </body>
