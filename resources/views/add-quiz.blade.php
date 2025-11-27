@@ -3,137 +3,101 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Quiz Page</title>
-    @vite(['resources/css/app.css'])
-    <!-- Heroicons CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/index.js"></script>
+    <title>Add Quiz Page</title>
+    @vite('resources/css/app.css')
 </head>
 
-<body class="bg-gray-100 min-h-screen">
-
-    <!-- Navbar -->
+<body>
     <x-navbar name={{$name}}></x-navbar>
-    <div class="flex min-h-screen justify-center w-full items-baseline ">
-        <div class="lg:col-span-1 ">
-            <div class="bg-white mt-2 w-3xl text-center rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6">
-                @if(!session('quizeDetails'))
-               
 
-                <form action="/add-quiz" method="get" class="space-y-4">
-                    <div>
-                        <input
-                            name="question"
-                            type="text"
+    <div class="bg-gray-100 flex flex-col items-center min-h-screen pt-5">
 
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
-                            placeholder="Enter Quiz">
-                    </div>
-                    <!-- @error('category')
-                        <div class="text-red-600">{{$message}}</div>
-                        @enderror -->
+        <div class=" bg-white p-8 rounded-2xl  shadow-lg w-full max-w-md">
+            @if(!session('quizDetails'))
+            <h2 class="text-2xl text-center text-gray-800 mb-6 ">Add Quiz </h2>
+            <form action="/add-quiz" method="get" class="space-y-4">
 
-                    <select name="category_id" type='text' class=" w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200">
+                <div>
+                    <input type="text" placeholder="Enter Quiz name" required name="quiz"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
+                </div>
+
+                <div>
+                    <select type="text" name="category_id"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
                         @foreach($categories as $category)
                         <option value={{$category->id}}>{{$category->name}}</option>
                         @endforeach
                     </select>
-                    <button
-                        type="submit"
-                        class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition duration-200 font-semibold shadow-md hover:shadow-lg flex items-center justify-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Add Quiz
-                    </button>
-                </form>
-                @else
-
-
-
-                <form action="/add-mcq" method="post" class="bg-white p-6 rounded-2xl shadow-md max-w-2xl mx-auto mt-6 space-y-5">
-                    @csrf
-
-                    <h2 class="text-2xl font-bold text-gray-800">
-                        Add MCQ for Quiz: <span class="text-indigo-600">{{ session('quizeDetails')->name }}</span>
-                    </h2>
-
-                    <!-- Question -->
-                    <div>
-                        <label class="text-gray-700 font-medium">Enter Question</label>
-                        <textarea
-                            name="questions"
-                            class="w-full mt-2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                            placeholder="Enter quiz question..."></textarea>
-                    </div>
-
-                    <!-- Options -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-                        <div>
-                            <label class="text-gray-700 font-medium">Option A</label>
-                            <input name="a" type="text"
-                                class="w-full mt-2 px-4 py-3 border rounded-lg focus:ring-indigo-500"
-                                placeholder="Enter option A">
-                        </div>
-
-                        <div>
-                            <label class="text-gray-700 font-medium">Option B</label>
-                            <input name="b" type="text"
-                                class="w-full mt-2 px-4 py-3 border rounded-lg focus:ring-indigo-500"
-                                placeholder="Enter option B">
-                        </div>
-
-                        <div>
-                            <label class="text-gray-700 font-medium">Option C</label>
-                            <input name="c" type="text"
-                                class="w-full mt-2 px-4 py-3 border rounded-lg focus:ring-indigo-500"
-                                placeholder="Enter option C">
-                        </div>
-
-                        <div>
-                            <label class="text-gray-700 font-medium">Option D</label>
-                            <input name="d" type="text"
-                                class="w-full mt-2 px-4 py-3 border rounded-lg focus:ring-indigo-500"
-                                placeholder="Enter option D">
-                        </div>
-
-                    </div>
-
-                    <!-- Correct Answer -->
-                    <div>
-                        <label class="text-gray-700 font-medium block mb-2">Correct Answer</label>
-                        <select name="correct_ans"
-                            class="w-full px-4 py-3 border rounded-lg focus:ring-indigo-500">
-                            <option value="a">A</option>
-                            <option value="b">B</option>
-                            <option value="c">C</option>
-                            <option value="d">D</option>
-                        </select>
-                    </div>
-
-                    <!-- Submit Buttons -->
-                    <div class="space-y-3">
-                        <button
-                            type="submit"
-                            name="submit"
-                            value="add-more"
-                            class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 shadow-md">
-                            Add Question
-                        </button>
-
-                        <button
-                            type="submit"
-                            name="submit"
-                            value="done"
-                            class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 shadow-md">
-                            Done
-                        </button>
-                    </div>
-
-                </form>
+                </div>
+                <button type="submit" class="w-full bg-blue-500 rounded-xl px-4 py-2 text-white">Add</button>
+            </form>
+            @else
+            <span class="text-green-500 font-bold">Quiz : {{session('quizDetails')->name}}</span>
+            <p class="text-green-500 font-bold">Total MCQs : {{$totalMCQs}}
+                @if($totalMCQs>0)
+                <a class="text-yellow-500 text-sm" href="show-quiz/{{session('quizDetails')->id}}">Show MCQs</a>
                 @endif
-            </div>
+            </p>
+            <h2 class="text-2xl text-center text-gray-800 mb-6 ">Add MCQs </h2>
+            <form action="add-mcq" method="post" class="space-y-4">
+                <div>
+                    @csrf
+                    <textarea type="text" placeholder="Enter your question name" name="question"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none"></textarea>
+                    @error('question')
+                    <div class="text-red-500">{{$message}}</div>
+                    @enderror
+                </div>
+                <div>
+                    <input type="text" placeholder="Enter first option" name="a"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
+                    @error('a')
+                    <div class="text-red-500">{{$message}}</div>
+                    @enderror
+                </div>
+                <div>
+                    <input type="text" placeholder="Enter second option" name="b"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
+                    @error('b')
+                    <div class="text-red-500">{{$message}}</div>
+                    @enderror
+                </div>
+                <div>
+                    <input type="text" placeholder="Enter third option" name="c"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
+                    @error('c')
+                    <div class="text-red-500">{{$message}}</div>
+                    @enderror
+                </div>
+                <div>
+                    <input type="text" placeholder="Enter forth option" name="d"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
+                    @error('d')
+                    <div class="text-red-500">{{$message}}</div>
+                    @enderror
+                </div>
+
+                <div>
+                    <select name="correct_ans"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
+                        <option value="">Select Right Answer</option>
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                    </select>
+                    @error('correct_ans')
+                    <div class="text-red-500">{{$message}}</div>
+                    @enderror
+                </div>
+                <button type="submit" name="submit" value="add-more" class="w-full bg-blue-500 rounded-xl px-4 py-2 text-white">Add More</button>
+                <button type="submit" name="submit" value="done" class="w-full bg-green-500 rounded-xl px-4 py-2 text-white">Add and Submit</button>
+                <a class="w-full bg-red-500 block text-center rounded-xl px-4 py-2 text-white" href="/end-quiz">Finish Quiz</a>
+
+
+            </form>
+            @endif
         </div>
     </div>
 </body>

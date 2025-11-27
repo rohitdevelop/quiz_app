@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+
+
 use App\Models\Admin;
 use App\Models\Category;
 use App\Models\Quiz;
 use App\Models\Mcq;
-use Illuminate\Support\Facades\Redirect;
-
-use function Pest\Laravel\session;
-
+ 
+ 
 class AdminController extends Controller
 {
 
@@ -122,7 +122,7 @@ class AdminController extends Controller
 
             }else{
                 $quiz= Session::get('quizDetails');
-                $totalMCQs = $quiz && Mcq::where('quiz_id',$quiz->id)->count();
+                $totalMCQs = Mcq::where('quiz_id',$quiz->id)->count();
             }
 
             return view('add-quiz',["name"=>$admin->name,"categories"=>$categories,"totalMCQs"=>$totalMCQs]);
@@ -162,6 +162,21 @@ class AdminController extends Controller
            }
         }
 
+    }
+    function endQuiz(){
+        Session::forget('quizDetails');
+            return redirect("/admin-categories");
+    }
+
+    function showQuiz($id){
+      
+        $admin = Session::get('admin');
+         $mcqs=Mcq::where('quiz_id',$id)->get();
+        if($admin){
+            return view('show-quiz',["name"=>$admin->name,"mcqs"=>$mcqs]);
+        }else{
+            return redirect('admin-login');
+        }
     }
  
 }
