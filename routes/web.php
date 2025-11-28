@@ -2,14 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
- 
-Route::get('/', function () {
-    return view('welcome');
-});
- Route::get('/admin-login', function () {
-    return view('admin-login');
-});
- 
+use App\Http\Controllers\UserController;
+   
+ Route::get('/',[UserController:: class,'Welcome']);
+//  Route::get('user-quize-list/{id}/category',[UserController:: class,'userQuizeList']);
+
+
+
+
+
 
 Route::post('admin-login',[AdminController:: class,'login']);
 Route::get('dashboard',[AdminController:: class,'dashboard']);

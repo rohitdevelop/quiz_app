@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/index.js"></script>
 </head>
 
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-linear-to-br from-blue-50 to-indigo-100 min-h-screen">
 
     <!-- Navbar -->
     <x-navbar name={{$name}}></x-navbar>
