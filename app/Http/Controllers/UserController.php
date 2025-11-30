@@ -9,15 +9,16 @@ use App\Models\Quiz;
 class UserController extends Controller
 {
   function Welcome(){
-         return view('welcome');
+    $categories = Category::withCount('quizzes')->get();
+        //  return view('welcome');
     //    $quizData=Quiz::withCount('Records')->orderBy('records_count','desc')->take(5)->get();
-        // return view('welcome',['categories'=>$categories]);
+        return view('welcome',['categories'=>$categories]);
     }
-//   function userQuizList($id,$category){
+  function userQuizeList($id,$category){
      
-//         $quizData=Quiz::withCount('Mcq')->where('category_id',$id)->get();
-//            return view('user-quiz-list',["quizData"=>$quizData,'category'=>$category]);
+        $quizData=Quiz::where('category_id',$id)->get();
+           return view('user-quiz-list',["quizData"=>$quizData,'category'=>$category]);
       
-//     }
+    }
 
 }

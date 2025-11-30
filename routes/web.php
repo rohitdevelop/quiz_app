@@ -5,7 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
    
  Route::get('/',[UserController:: class,'Welcome']);
-//  Route::get('user-quize-list/{id}/category',[UserController:: class,'userQuizeList']);
+ Route::get('user-quiz-list/{id}/{category}',[UserController:: class,'userQuizeList']);
 
 
 
