@@ -6,9 +6,14 @@ use App\Http\Controllers\UserController;
    
  Route::get('/',[UserController:: class,'Welcome']);
  Route::get('user-quiz-list/{id}/{category}',[UserController:: class,'userQuizeList']);
-
-
-
+ Route::get('start-quiz/{id}/{name}',[UserController:: class,'startQuize']);
+ Route::view('user-signup','user-signup');
+ Route::post('user-signup',[UserController::class , 'userSignup']);
+ Route::get('user-logout',[UserController:: class,'userLogout']);
+ Route::get('user-signup-quiz',[UserController::class , 'userSignupQuiz']);
+ 
+ 
+ Route::view('admin-login','admin-login');
 
 
 
