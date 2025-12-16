@@ -7,7 +7,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-100 min-h-screen">
+<body class="bg-linear-to-br from-indigo-50 via-blue-50 to-purple-100 min-h-screen">
 
 <x-user-navbar />
 

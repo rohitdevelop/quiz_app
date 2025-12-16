@@ -12,10 +12,13 @@ use App\Http\Controllers\UserController;
  Route::get('user-logout',[UserController:: class,'userLogout']);
  Route::get('user-signup-quiz',[UserController::class , 'userSignupQuiz']);
  
+ Route::view('user-login','user-login');
+ Route::post('user-login',[UserController::class , 'userLogin']);
+ Route::get('user-login-quiz',[UserController::class , 'userLoginQuiz']);
+ 
+ 
  
  Route::view('admin-login','admin-login');
-
-
 
 Route::post('admin-login',[AdminController:: class,'login']);
 Route::get('dashboard',[AdminController:: class,'dashboard']);

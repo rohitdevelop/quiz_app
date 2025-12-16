@@ -48,18 +48,18 @@ class UserController extends Controller
 
     if ($user) {
 
-        // login user
-        Session::put('user', $user);
+      // login user
+      Session::put('user', $user);
 
-        // ✅ redirect back to quiz if exists
-        if (Session::has('quiz-url')) {
-            $url = Session::get('quiz-url');
-            Session::forget('quiz-url');
-            return redirect($url);
-        }
+      // ✅ redirect back to quiz if exists
+      if (Session::has('quiz-url')) {
+        $url = Session::get('quiz-url');
+        Session::forget('quiz-url');
+        return redirect($url);
+      }
 
-        // normal redirect
-        return redirect('/');
+      // normal redirect
+      return redirect('/');
     }
   }
 
@@ -78,6 +78,33 @@ class UserController extends Controller
     return view('user-signup');
   }
 
+  function userLogin(Request $request)
+  {
+    $validate = $request->validate([
+      'email' => 'required | email',
+      'password' => 'required',
+    ]);
 
+    $user = User::where('email', $request->email)->first();
+    if (!$user || !Hash::check($request->password, $user->password)) {
+      return redirect('user-login')->with('message-error', "User not valid, Please check email and password again");
+    }
 
+    if ($user) {
+      Session::put('user', $user);
+      if (Session::has('quiz-url')) {
+
+        $url = Session::get('quiz-url');
+        Session::forget('quiz-url');
+        return redirect($url);
+      } else {
+        return redirect('/');
+      }
+    }
+  }
+  function userLoginQuiz()
+  {
+    Session::put('quiz-url', url()->previous());
+    return view('user-login');
+  }
 }
