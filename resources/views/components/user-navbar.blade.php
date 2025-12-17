@@ -20,14 +20,14 @@
                hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-900">
                     Categories
                 </a>
-                <a href="/admin-logout" class="text-white px-4 py-2 rounded-md transition-all duration-300 
+                <a href="admin-logout" class="text-white px-4 py-2 rounded-md transition-all duration-300 
                hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-900">
                     Blog
                 </a>
                 @if(session('user'))
-                <span class="text-blue-100 font-semibold px-3">
+                <a href="/user-details" class="text-blue-100 cursor-pointer font-semibold px-3">
                     Welcome, {{session('user')->name}}
-                </span>
+</a>
 
                 <a href="user-logout" class="bg-red-500 text-white px-4 py-2 rounded-md 
                hover:bg-red-600 transition-all duration-300 hover:shadow-lg">

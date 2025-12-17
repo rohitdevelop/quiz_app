@@ -18,7 +18,7 @@
                   <a href="/dashboard" class="text-gray-300 hover:bg-indigo-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
                       Dashboard
                   </a>
-                  <span class="text-indigo-200 text-sm font-medium px-3 py-2 rounded-lg">
+                  <span class="text-indigo-200 text-sm font-medium px-3 py-2 rounded-lg cursor-pointer">
                       Welcome {{$name}}
                   </span>
                   <a href="/admin-logout" class="bg-white text-indigo-900 hover:bg-gray-200 px-3 py-1.5 rounded-lg text-sm font-semibold shadow-md">

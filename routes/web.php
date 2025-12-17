@@ -13,6 +13,7 @@ use App\Http\Controllers\UserController;
  Route::get('user-signup-quiz',[UserController::class , 'userSignupQuiz']);
  Route::get('mcq/{id}/{name}',[UserController::class,"mcq"]);
  Route::post('submit-next/{id}',[UserController::class,"submitAndNext"]);
+ Route::get('user-details',[UserController::class,"userDetails"]);
  
  Route::view('user-login','user-login');
  Route::post('user-login',[UserController::class , 'userLogin']);
