@@ -20,7 +20,7 @@
                hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-900">
                     Categories
                 </a>
-                <a href="admin-logout" class="text-white px-4 py-2 rounded-md transition-all duration-300 
+                <a href="/blog" class="text-white px-4 py-2 rounded-md transition-all duration-300 
                hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-900">
                     Blog
                 </a>
