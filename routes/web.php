@@ -11,6 +11,8 @@ use App\Http\Controllers\UserController;
  Route::post('user-signup',[UserController::class , 'userSignup']);
  Route::get('user-logout',[UserController:: class,'userLogout']);
  Route::get('user-signup-quiz',[UserController::class , 'userSignupQuiz']);
+ Route::get('mcq/{id}/{name}',[UserController::class,"mcq"]);
+ Route::post('submit-next/{id}',[UserController::class,"submitAndNext"]);
  
  Route::view('user-login','user-login');
  Route::post('user-login',[UserController::class , 'userLogin']);
