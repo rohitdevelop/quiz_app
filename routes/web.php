@@ -12,7 +12,9 @@ Route::post('user-signup', [UserController::class, 'userSignup']);
 Route::get('user-logout', [UserController::class, 'userLogout']);
 Route::get('user-signup-quiz', [UserController::class, 'userSignupQuiz']);
 
-// Route::get('verify-user/{email}',[UserController::class,'verifyEmail']);
+Route::get('categories-list',[UserController::class,'categories']);
+Route::get('certificate',[UserController::class,'certificate']);
+Route::get('download-certificate',[UserController::class,'downloadCertificate']);
  
 Route::middleware('CheckUserAuth')->group(function () {
     Route::get('mcq/{id}/{name}', [UserController::class, "mcq"]);

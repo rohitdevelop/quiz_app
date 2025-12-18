@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Admin extends Model
 {
     // Tell Laravel the table name is 'admin', not 'admins'
-    protected $table = 'admin';
+    protected $table = 'adin';
 
     // If you are not using timestamps
     public $timestamps = false;

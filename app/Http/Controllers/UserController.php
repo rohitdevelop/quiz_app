@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Spatie\Browsershot\Browsershot;
+
 use App\Models\Category;
 use App\Models\Quiz;
 use App\Models\Mcq;
@@ -22,7 +24,11 @@ class UserController extends Controller
     }
 
 
+function categories(){
 
+        $categories=Category::withCount('quizzes')->orderBy('quizzes_count','desc')->paginate(4);
+   return view('categories-list',['categories'=>$categories]);
+      }
 
   function userQuizeList($id, $category)
   {
@@ -208,4 +214,28 @@ class UserController extends Controller
   return view('user-details',['quizRecord'=>$quizRecord]);
  }
 
+
+ function certificate(){
+  $data=[];
+
+  $data['quiz']= str_replace('-',' ',Session::get('currentQuiz')['quizName']);
+  $data['name']= Session::get('user')['name'];
+  return  view('certificate',['data'=>$data]);
+ }
+
+ function downloadCertificate(){
+  $data=[];
+  $data['quiz']= str_replace('-',' ',Session::get('currentQuiz')['quizName']);
+  $data['name']= Session::get('user')['name'];
+  $html=  view('download-certificate',['data'=>$data])->render();
+  return response(
+    Browsershot::html($html)->pdf()
+  )->withHeaders(
+    [
+      'Content-Type'=>"application/pdf",
+      'Content-disposition'=>"attachment;filename=certificate.pdf"
+    ]
+    );
+  
+ }
 }
