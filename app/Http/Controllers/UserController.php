@@ -16,19 +16,21 @@ use App\Models\MCQ_Record;
 
 class UserController extends Controller
 {
-   function welcome(){
-       $categories=Category::withCount('quizzes')->orderBy('quizzes_count','desc')->take(5)->get();
-        
-       $quizData=Quiz::withCount('Records')->orderBy('records_count','desc')->take(6)->get();
-        return view('welcome',['categories'=>$categories,'quizData'=>$quizData]);
-    }
+  function welcome()
+  {
+    $categories = Category::withCount('quizzes')->orderBy('quizzes_count', 'desc')->take(5)->get();
+
+    $quizData = Quiz::withCount('Records')->orderBy('records_count', 'desc')->take(6)->get();
+    return view('welcome', ['categories' => $categories, 'quizData' => $quizData]);
+  }
 
 
-function categories(){
+  function categories()
+  {
 
-        $categories=Category::withCount('quizzes')->orderBy('quizzes_count','desc')->paginate(4);
-   return view('categories-list',['categories'=>$categories]);
-      }
+    $categories = Category::withCount('quizzes')->orderBy('quizzes_count', 'desc')->paginate(4);
+    return view('categories-list', ['categories' => $categories]);
+  }
 
   function userQuizeList($id, $category)
   {
@@ -116,10 +118,10 @@ function categories(){
 
         $url = Session::get('quiz-url');
         Session::forget('quiz-url');
-       return redirect($url)->with('message-success',"User registered successfully, Please check email to verify account ");
-        }else{
-          return redirect('/')->with('message-success',"User registered successfully, Please check email to verify account ");
-        }
+        return redirect($url)->with('message-success', "User registered successfully, Please check email to verify account ");
+      } else {
+        return redirect('/')->with('message-success', "User registered successfully, Please check email to verify account ");
+      }
     }
   }
 
@@ -209,33 +211,35 @@ function categories(){
   }
 
 
- function userDetails(){
-   $quizRecord = Record::WithQuiz()->where('user_id',Session::get('user')->id)->get();
-  return view('user-details',['quizRecord'=>$quizRecord]);
- }
+  function userDetails()
+  {
+    $quizRecord = Record::WithQuiz()->where('user_id', Session::get('user')->id)->get();
+    return view('user-details', ['quizRecord' => $quizRecord]);
+  }
 
 
- function certificate(){
-  $data=[];
+  function certificate()
+  {
+    $data = [];
 
-  $data['quiz']= str_replace('-',' ',Session::get('currentQuiz')['quizName']);
-  $data['name']= Session::get('user')['name'];
-  return  view('certificate',['data'=>$data]);
- }
+    $data['quiz'] = str_replace('-', ' ', Session::get('currentQuiz')['quizName']);
+    $data['name'] = Session::get('user')['name'];
+    return  view('certificate', ['data' => $data]);
+  }
 
- function downloadCertificate(){
-  $data=[];
-  $data['quiz']= str_replace('-',' ',Session::get('currentQuiz')['quizName']);
-  $data['name']= Session::get('user')['name'];
-  $html=  view('download-certificate',['data'=>$data])->render();
-  return response(
-    Browsershot::html($html)->pdf()
-  )->withHeaders(
-    [
-      'Content-Type'=>"application/pdf",
-      'Content-disposition'=>"attachment;filename=certificate.pdf"
-    ]
+  function downloadCertificate()
+  {
+    $data = [];
+    $data['quiz'] = str_replace('-', ' ', Session::get('currentQuiz')['quizName']);
+    $data['name'] = Session::get('user')['name'];
+    $html =  view('download-certificate', ['data' => $data])->render();
+    return response(
+      Browsershot::html($html)->pdf()
+    )->withHeaders(
+      [
+        'Content-Type' => "application/pdf",
+        'Content-disposition' => "attachment;filename=certificate.pdf"
+      ]
     );
-  
- }
+  }
 }
