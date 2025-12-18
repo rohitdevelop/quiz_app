@@ -14,13 +14,12 @@ use App\Models\MCQ_Record;
 
 class UserController extends Controller
 {
-  function Welcome()
-  {
-    $categories = Category::withCount('quizzes')->get();
-    //  return view('welcome');
-    //    $quizData=Quiz::withCount('Records')->orderBy('records_count','desc')->take(5)->get();
-    return view('welcome', ['categories' => $categories]);
-  }
+   function welcome(){
+       $categories=Category::withCount('quizzes')->orderBy('quizzes_count','desc')->take(5)->get();
+        
+       $quizData=Quiz::withCount('Records')->orderBy('records_count','desc')->take(6)->get();
+        return view('welcome',['categories'=>$categories,'quizData'=>$quizData]);
+    }
 
 
 
@@ -111,10 +110,10 @@ class UserController extends Controller
 
         $url = Session::get('quiz-url');
         Session::forget('quiz-url');
-        return redirect($url);
-      } else {
-        return redirect('/');
-      }
+       return redirect($url)->with('message-success',"User registered successfully, Please check email to verify account ");
+        }else{
+          return redirect('/')->with('message-success',"User registered successfully, Please check email to verify account ");
+        }
     }
   }
 

@@ -12,7 +12,7 @@ class Record extends Model
         ->select('quizzes.*','records.*');
     }
 
-    // function quiz(){
-    //     return $this->belongsTo(Quiz::class);
-    // }
+    function quiz(){
+        return $this->belongsTo(Quiz::class);
+    }
 }

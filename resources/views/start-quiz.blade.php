@@ -16,7 +16,7 @@
     @endif
     <div class="bg-gray-100 flex flex-col items-center min-h-screen pt-5">
         <h1 class="text-4xl text-center text-green-800 mb-6 font-bold ">
-            {{($quizName)}}
+          {{ str_replace('-',' ', $quizName)}}
         </h1>
         <h2 class="text-lg text-center text-green-800 mb-6 font-bold ">
             This Quiz container {{$quizCount}} Questions and no limit to attempt this Quiz</h2>

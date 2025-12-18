@@ -8,10 +8,16 @@ use phpDocumentor\Reflection\Types\This;
 
 class Quiz extends Model
 {
-    function category()  {
+    function category()
+    {
         return $this->belongsTo(Category::class);
     }
-    function Mcq() {
+    function Mcq()
+    {
         return $this->hasMany(Mcq::class);
+    }
+    function Records()
+    {
+        return $this->hasMany(Record::class);
     }
 }

@@ -12,8 +12,8 @@ Route::post('user-signup', [UserController::class, 'userSignup']);
 Route::get('user-logout', [UserController::class, 'userLogout']);
 Route::get('user-signup-quiz', [UserController::class, 'userSignupQuiz']);
 
-Route::get('verify-user/{email}',[UserController::class,'verifyEmail']);
-
+// Route::get('verify-user/{email}',[UserController::class,'verifyEmail']);
+ 
 Route::middleware('CheckUserAuth')->group(function () {
     Route::get('mcq/{id}/{name}', [UserController::class, "mcq"]);
     Route::post('submit-next/{id}', [UserController::class, "submitAndNext"]);

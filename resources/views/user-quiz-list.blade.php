@@ -18,7 +18,7 @@
         <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-3">
             <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-800">
                 Category:
-                <span class="text-indigo-600">{{ $category }}</span>
+                <span class="text-indigo-600">{{str_replace('-',' ', $category )}}</span>
             </h2>
         </div>
 
@@ -59,7 +59,7 @@
                 <!-- Action -->
                 <div class="sm:hidden px-4 text-xs font-bold text-gray-500">Action</div>
                 <div class="col-span-2 px-4 py-3 flex justify-center">
-                    <a href="/start-quiz/{{ $item->id }}/{{ $item->name }}"
+                    <a href="/start-quiz/{{ $item->id }}/{{str_replace(' ','-', $item->name )}}"
                         class="px-4 py-2 rounded-xl bg-green-500 text-white font-semibold hover:bg-green-600 transition">
                         Attempt Quiz
                     </a>
